@@ -26,7 +26,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Update Subject</title>
+        <title>Enroll</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     </head>
     <style>
@@ -38,7 +38,7 @@
         }
     </style>
     <body>
-        <div class="container-fluid">
+    <div class="container-fluid">
             <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
                 <a class="navbar-brand" href="#">
                     DCIS                  
@@ -47,15 +47,17 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                    <div class="navbar-nav">  
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle active text-primary" href="#"  href="#" id="administratorDropDown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Administrator<span class="sr-only">(current)</span>
+                    <div class="navbar-nav">
+                        <a class="nav-item nav-link active <?php echo ($user['user_type'] != "Student")? 'disabled': 'text-primary' ;?>" href="#">Students<span class="sr-only">(current)</span></a>      
+                        
+                        <!--<li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle <?php echo ($user['user_type'] != "Administrator")? 'disabled': 'text-primary' ;?>" href="#"  href="#" id="administratorDropDown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Administrator
                             </a>
                             <div class="dropdown-menu" aria-labelledby="administratorDropDown">
-                            <a class="dropdown-item" href="./subject.php">Subjects</a>
-                            <!-- <a class="dropdown-item" href="./schedule.php">Schedules</a> -->
-                        </li>          
+                            <a class="dropdown-item" href="./subject/subject.php">Subjects</a>
+                            
+                        </li>  -->        
                     </div>
                 </div>
 
@@ -80,61 +82,30 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header text-primary">
-                                Update Student
+                                Enroll
                             </div>
                             <div class="card-body">
                                 <div class="container">
                                     <form action="#" method='POST'>
 
+                                        <!-- Schedules must be shown on the dropdown depending on the chosen subject  -->
                                         <div class="form-group row">
-                                            <label for="subject_id" class="col-md-4 col-form-label text-md-right">Subject ID</label>
+                                            <label for="schedule" class="col-md-4 col-form-label text-md-right">Schedule</label>                   
                                             <div class="col-md-6">
-                                                <input id="subject_id" type="text" valuer="" class="form-control" name="subject_id"> <!-- echo the original data inside the value -->
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group row">
-                                            <label for="subject_name" class="col-md-4 col-form-label text-md-right">Subject Name</label>
-                                            <div class="col-md-6">
-                                                <input id="subject_name" type="text" value="" class="form-control" name="subject_name">
-                                            </div>
-                                        </div>
-                                        
-                                        <div class="form-group row">
-                                            <label for="subject_teacher" class="col-md-4 col-form-label text-md-right">Teacher</label>                   
-                                            <div class="col-md-6">
-                                                <select class='selectpicker form-control' placeholder="Choose a teacher" name="subject_teacher" id="subject_teacher">
-                                                    <option value=""><!--echo here --></option><!--echo inside the value should be the teacher id -->
-                                                    <option value=""><!--echo here --></option><!--echo inside the value should be the teacher id -->
+                                                <select class='selectpicker form-control' placeholder="Choose a subject" name="schedule" id="schedule">
+                                                    <option value=""><!--echo the subjectSchedule_id here --></option><!--echo inside the value the subjectSchedule_id  here -->
+                                                    <option value=""><!--echo the subjectSchedule_id  here --></option><!--echo inside the value the subjectSchedule_id  here -->
                                                 </select>
                                             </div>
-                                         </div>  
-                                         
-                                         <div class="form-group row">
-                                            <label for="shedule" class="col-md-4 col-form-label text-md-right">Schedule</label>                   
-                                            <div class="col-md-6">
-                                                <select class='selectpicker form-control' placeholder="Choose a schedule" name="sheduler" id="shedule">
-                                                    <option value=""><!--echo the schedule here --></option><!--echo inside the value should be the schedule id -->
-                                                    <option value=""><!--echo the schedule here --></option><!--echo inside the value should be the schedule id -->
-                                                </select>
-                                            </div>
-                                         </div>                 
-
-                                         <div class="form-group row">
-                                            <label for="subject_max" class="col-md-4 col-form-label text-md-right">Subject Maximum Students</label>
-                                            <div class="col-md-6">
-                                                <input id="subject_max" type="number" value="" class="form-control" name="subject_max"> <!-- echo the original data inside the value -->
-                                            </div>
-                                        </div>
+                                        </div>  
 
                                         <div class="form-group row">  
                                             <label for="add" class="col-md-4 col-form-label text-md-right"></label>                
                                             <div class="col-md-6">
-                                                <a href='./subject.php' name='cancel' class='btn btn-primary '>Cancel</a>
-                                                <button type='submit' name='update' class='btn btn-primary '>Update</button>                                            
+                                                <a href='./enroll_subjects.php' name='cancel' class='btn btn-primary '>Cancel</a>
+                                                <button type='submit' name='enroll' class='btn btn-primary '>Enroll</button>                                            
                                             </div>
                                         </div>
-
                                     </form>
                                 </div>
                             </div>

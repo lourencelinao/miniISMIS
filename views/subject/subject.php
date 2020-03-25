@@ -47,16 +47,13 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                    <div class="navbar-nav">
-                        <a class="nav-item nav-link" href="../ismis.php">Home</a>
-                        <a class="nav-item nav-link" href="../students.php">Students</a>
-                        <a class="nav-item nav-link" href="#">Faculty</a>                  
+                    <div class="navbar-nav">       
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle active <?php echo ($user['user_type'] != "Administrator")? 'disabled': '' ;?>" href="#"  href="#" id="administratorDropDown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle active text-primary" href="#"  href="#" id="administratorDropDown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Administrator<span class="sr-only">(current)</span>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="administratorDropDown">
-                            <a class="dropdown-item" href="#">Subjects</a>
+                            <a class="dropdown-item" href="./subject.php">Subjects</a>
                             <!-- <a class="dropdown-item" href="./schedule.php">Schedules</a> -->
                         </li>          
                     </div>

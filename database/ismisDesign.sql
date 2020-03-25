@@ -18,7 +18,8 @@ create table person(
 
 
 create table subjects(
-    subject_id int,
+    subject_id int auto_increment,
+    subject_code varchar(8),
     faculty_id int,
     subject_name varchar(32),
     max_students int,

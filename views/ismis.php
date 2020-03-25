@@ -48,11 +48,10 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div class="navbar-nav">
-                        <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
-                        <a class="nav-item nav-link" href="./students.php">Students</a>
-                        <a class="nav-item nav-link" href="#">Faculty</a>                  
+                        <a class="nav-item nav-link <?php echo ($user['user_type'] != 'Student') ? 'disabled': 'text-primary' ;?>" href="./students.php">Students</a>
+                        <a class="nav-item nav-link <?php echo ($user['user_type'] != 'Faculty') ? 'disabled': 'text-primary' ;?>" href="./faculty/faculty.php">Faculty</a>                  
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle <?php echo ($user['user_type'] != "Administrator")? 'disabled': '' ;?>" href="#"  href="#" id="administratorDropDown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle <?php echo ($user['user_type'] != "Administrator")? 'disabled': 'text-primary' ;?>" href="#"  href="#" id="administratorDropDown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Administrator
                             </a>
                             <div class="dropdown-menu" aria-labelledby="administratorDropDown">

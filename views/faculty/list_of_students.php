@@ -26,7 +26,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Student</title>
+        <title>Subjects</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     </head>
     <style>
@@ -48,17 +48,9 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div class="navbar-nav">
-                        <a class="nav-item nav-link" href="./ismis.php">Home</a>
-                        <a class="nav-item nav-link active" href="#">Students<span class="sr-only">(current)</span></a>
-                        <a class="nav-item nav-link" href="#">Faculty</a>                  
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle <?php echo ($user['user_type'] != "Administrator")? 'disabled': '' ;?>" href="#"  href="#" id="administratorDropDown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Administrator
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="administratorDropDown">
-                            <a class="dropdown-item" href="./subject/subject.php">Subjects</a>
-                            <!-- <a class="dropdown-item" href="./schedule.php">Schedules</a> -->
-                        </li>          
+                        <a class="nav-item nav-link text-primary" href="#">
+                            Faculty
+                        </a>                     
                     </div>
                 </div>
 
@@ -69,16 +61,62 @@
                         <?php echo $person['fname']; ?>
                     </button>
                     <div class="dropdown-menu dropdown-menu-right">
-                        <a class="dropdown-item" href="./login.php">Logout</a>
+                        <a class="dropdown-item" href="../login.php">Logout</a>
                     </div>
                     </div>
-                </div>
+                </div>                
             </nav>
         </div>
 
         <!-- body content -->
         <div class="container-fluid">
-            
+            <div class="container">
+                <div class="row mt-3">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header text-primary d-flex justify-content-between align-items-baseline">
+                                Teacher
+                            </div>
+                            <div class="card-body">
+                                <h3>Assigned Subjects</h3>
+
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Student ID</th>
+                                            <th scope="col">Student Name</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">1</th>
+                                            <td>Lourence Linao</td>
+                                        </tr>
+
+                                        <tr>
+                                            <th scope="row">2</th>
+                                            <td>Jamiel Catalan</td>
+                                        </tr>
+
+                                        <!--
+                                        <?php if(mysqli_num_rows($dummy) > 0) : ?>
+                                            <?php while($row = mysqli_fetch_assoc($dummy)) :?>
+                                                <tr>
+                                                    <th scope="row"><?php echo '' ; ?></th> //student id 
+                                                    <td><?php echo ''; ?></td> //student name 
+                                                </tr>
+                                            <?php endwhile ?>
+                                        <?php endif ?>
+                                        -->
+
+                                    </tbody>
+                                </table>
+                                <a type='submit' href="./faculty.php" class='btn btn-primary btn-sm'>Back</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>

@@ -22,6 +22,36 @@
     $result = mysqli_query($conn, $sql);
     $person = mysqli_fetch_assoc($result);
 
+
+    //INSERTS INTO SUBJECT
+    if(isset($_POST["add"])){
+        $id=$_POST["subject_id"];
+        $sub=$_POST["subject_name"];
+        $teacher=$_POST["subject_teacher"];
+        $sched=$_POST["sheduler"];
+        $max=$_POST["subject_max"];
+        $check="SELECT * FROM subject_schedule WHERE faculty_id!=$id AND time!=sched";
+        if(mysqli_query($check,$conn)==FALSE){
+            echo '<script type="text/javascript">
+                        alert("Teacher or subject in conflict");
+                            </script>';
+        }
+        else{
+            $query="INSERT INTO subjects(subject_id,faculty_id,subject_name,max_students) VALUES($id,$sub,'$teacher','$sched',$max)";
+            $query2="INSERT INTO subject_schedule(time) VALUES($sched)";
+            if(mysqli_query($conn, $query) && mysqli_query($conn,$query2)){
+                header('Location: ../views/ismis.php'); 
+            }
+            else{
+                echo '<script type="text/javascript">
+                        alert("Error in creating subject!");
+                            location="index.php";
+                            </script>';
+            }
+        }   
+    }
+
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -48,17 +78,14 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div class="navbar-nav">
-                        <a class="nav-item nav-link" href="../ismis.php">Home</a>
-                        <a class="nav-item nav-link" href="../students.php">Students</a>
-                        <a class="nav-item nav-link" href="#">Faculty</a>                  
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle active <?php echo ($user['user_type'] != "Administrator")? 'disabled': '' ;?>" href="#"  href="#" id="administratorDropDown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle active text-primary" href="#"  href="#" id="administratorDropDown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Administrator<span class="sr-only">(current)</span>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="administratorDropDown">
                             <a class="dropdown-item" href="./subject.php">Subjects</a>
                             <!-- <a class="dropdown-item" href="./schedule.php">Schedules</a> -->
-                        </li>          
+                        </li>           
                     </div>
                 </div>
 
@@ -69,7 +96,7 @@
                         <?php echo $person['fname']; ?>
                     </button>
                     <div class="dropdown-menu dropdown-menu-right">
-                        <a class="dropdown-item" href="./login.php">Logout</a>
+                        <a class="dropdown-item" href="../login.php">Logout</a>
                     </div>
                     </div>
                 </div>
@@ -107,8 +134,15 @@
                                             <label for="subject_teacher" class="col-md-4 col-form-label text-md-right">Teacher</label>                   
                                             <div class="col-md-6">
                                                 <select class='selectpicker form-control' placeholder="Choose a teacher" name="subject_teacher" id="subject_teacher">
-                                                    <option value=""><!--echo here --></option><!--echo inside the value should be the teacher id -->
-                                                    <option value=""><!--echo here --></option><!--echo inside the value should be the teacher id -->
+                                                    <?php 
+                                                    $query1="SELECT * FROM faculty WHERE person_type='Faculty' AND status='Active'";
+                                                    $result1=mysqli_query($conn,$query1);
+                                                    if($result1){
+                                                    while($row=mysqli_fetch_assoc($result1)){
+                                                       printf("<option value='%d'>%s</option>",$row["person_id"],$row["fname"]); 
+                                                    }
+                                                }
+                                                    ?>
                                                 </select>
                                             </div>
                                          </div>  
@@ -117,8 +151,15 @@
                                             <label for="shedule" class="col-md-4 col-form-label text-md-right">Schedule</label>                   
                                             <div class="col-md-6">
                                                 <select class='selectpicker form-control' placeholder="Choose a schedule" name="sheduler" id="shedule">
-                                                    <option value=""><!--echo the schedule here --></option><!--echo inside the value should be the schedule id -->
-                                                    <option value=""><!--echo the schedule here --></option><!--echo inside the value should be the schedule id -->
+                                                <?php
+                                                $query1="SELECT * FROM subject_schedule";
+                                                $result1=mysqli_query($conn,$query1);
+                                                if($result1){
+                                                    while($row=mysqli_fetch_assoc($result1)){
+                                                       printf("<option value='%d'>%s</option>",$row["subjectSchedule_id"],$row["time"]);
+                                                    }
+                                                }
+                                                ?>
                                                 </select>
                                             </div>
                                          </div>

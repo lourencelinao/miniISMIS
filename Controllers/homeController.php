@@ -21,8 +21,15 @@
         $result = mysqli_query($conn, $sql);
         if(mysqli_num_rows($result) > 0){
             $sql = "insert into auth(person_id) values('$username')";
+            $row = mysqli_fetch_assoc($result);
             if(mysqli_query($conn, $sql)){
-                header('Location: ../views/ismis.php'); 
+                if($row['user_type'] == 'Administrator'){
+                    header('Location: ../views/subject/subject.php');
+                }else if($row['user_type'] == 'Student'){
+                    header('Location: ../views/students/students.php');
+                }else{
+                    header('Location: ../views/faculty/faculty.php');
+                }
             }                   
         }else{
             header('Location: ../views/login.php');
