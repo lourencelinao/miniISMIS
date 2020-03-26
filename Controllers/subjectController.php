@@ -9,7 +9,7 @@ if(!$conn){
 }
 //INSERTS 
 if(isset($_POST["add"])){
-    $id=$_POST["subject_id"];
+    $id=$_POST["subject_code"];
     $sub=$_POST["subject_name"];
     $teacher=$_POST["subject_teacher"];
     $sched=$_POST["sheduler"];
@@ -22,8 +22,8 @@ if(isset($_POST["add"])){
                             </script>';
         }
         else{
-            $query="INSERT INTO subjects(subject_code,subject_name,max_students) VALUES($id,$sub,'$sched',$max)";
-            $query2="INSERT INTO subject_schedule(time) VALUES($sched)";
+            $query="INSERT INTO subjects(subject_code,subject_name,faculty_id,max_students) VALUES($code,$sub,$teacher,$max)";
+            $query2="INSERT INTO subject_schedule(subject_code,faculty_id,subject_name,time) VALUES($code,$teacher,$sub,$sched)";
             if(mysqli_query($conn, $query) && mysqli_query($conn,$query2)){
                 header('Location: ../views/ismis.php'); 
             }
@@ -48,13 +48,13 @@ if(isset($_POST['Remove'])){
     }
 }
 if(isset($_POST['update'])){
-    $id=$_POST["subject_id"];
+    $code=$_POST["subject_code"];
     $sub=$_POST["subject_name"];
     $teacher=$_POST["subject_teacher"];
     $sched=$_POST["sheduler"];
     $max=$_POST["subject_max"];
-    $query="INSERT INTO subjects(subject_code,subject_name,max_students) VALUES($id,$sub,'$sched',$max)";
-            $query2="INSERT INTO subject_schedule(time) VALUES($sched)";
+    $query="INSERT INTO subjects(subject_code,subject_name,faculty_id,max_students) VALUES($code,$sub,$teacher,$max)";
+            $query2="INSERT INTO subject_schedule(subject_code,faculty_id,subject_name,time) VALUES($code,$teacher,$sub,$sched)";
             if(mysqli_query($conn, $query) && mysqli_query($conn,$query2)){
                 header('Location: ../views/ismis.php'); 
             }
@@ -66,7 +66,7 @@ if(isset($_POST['update'])){
             }
 }
 if(isset($_POST['addStudent'])){
-    $stud=$_POST['student_name'];
+    $stud=$_POST['student_name'];//values are ids
     $sub=$_POST['subject_name'];
     $query1="INSERT INTO student_schedule(student_id,subjectSchedule_id) VALUES($stud,$sub)";
 }
