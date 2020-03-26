@@ -22,6 +22,9 @@
     $result = mysqli_query($conn, $sql);
     $person = mysqli_fetch_assoc($result);
 
+    $query1="SELECT * FROM person WHERE person_type='Students' AND Status='Active'";
+    $result1=mysqli_query($conn,$query1);
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -98,16 +101,16 @@
                                             <td>Jamiel Catalan</td>
                                         </tr>
 
-                                        <!--
-                                        <?php if(mysqli_num_rows($dummy) > 0) : ?>
-                                            <?php while($row = mysqli_fetch_assoc($dummy)) :?>
+                                        
+                                        <?php if(mysqli_num_rows($result1) > 0) : ?>
+                                            <?php while($row = mysqli_fetch_assoc($result1)) :?>
                                                 <tr>
-                                                    <th scope="row"><?php echo '' ; ?></th> //student id 
-                                                    <td><?php echo ''; ?></td> //student name 
+                                                    <th scope="row"><?php echo $row['person_id'] ; ?></th> //student id 
+                                                    <td><?php echo $row['fname']; echo$row['lname']; ?></td> //student name 
                                                 </tr>
                                             <?php endwhile ?>
                                         <?php endif ?>
-                                        -->
+                                        
 
                                     </tbody>
                                 </table>

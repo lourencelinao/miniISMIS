@@ -22,6 +22,10 @@
     $result = mysqli_query($conn, $sql);
     $person = mysqli_fetch_assoc($result);
 
+    $query="SELECT s.*,u.subjectSchedule_id,u.time,CONCAT(p.fname,'',p.lname)as name,p.person_id 
+    FROM subject s, subject_schedule u, person p WHERE s.subject_id=u.subject_id AND s.faculty_id=p.person_id ";
+    $result1= mysqli_query($query,$conn);
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -129,6 +133,26 @@
                                                 <td><a href='./updateSubject.php' class='btn btn-primary btn-sm'>Update</a> </td>
                                                 <td><a href='#' class='btn btn-primary btn-sm'>Remove</a></td>
                                             </tr>
+                                            <?php if($result1):?>
+                                            <?php if(mysqli_num_rows($result1) > 0) : ?> // replace $dummy with the result of query
+                                            <?php while($row = mysqli_fetch_assoc($result1)) :?> // replace $dummy with the result of query
+                                                <tr>
+                                                    <th scope="row"><?echo $row['subject_code']?></th>
+                                                    <td><?echo $row['subject_name']?></td>
+                                                    <td><?echo $row['name']?></td>
+                                                    <td><?echo $row['time']?></td>
+                                                    <td><?echo $row['max_students']?></td>
+                                                    <td><a href='./updateSubject.php' class='btn btn-primary btn-sm'>Update</a></td>
+                                                        <form action="../Controllers/subjectController.php" method='POST'>
+                                                            <input type="hidden" name='row_id' value='<?echo $row['subject_id']?>'> // echo subject id inside value
+                                                            <button type='submit' name='remove' class='btn btn-primary btn-sm'>Enroll</button>
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                            <?php endwhile ?>
+                                        <?php endif ?> 
+                                        <?php endif ?> 
+
                                         </tbody>
                                     </table>
                                 </div>

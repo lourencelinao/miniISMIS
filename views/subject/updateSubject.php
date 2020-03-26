@@ -104,8 +104,16 @@
                                             <label for="subject_teacher" class="col-md-4 col-form-label text-md-right">Teacher</label>                   
                                             <div class="col-md-6">
                                                 <select class='selectpicker form-control' placeholder="Choose a teacher" name="subject_teacher" id="subject_teacher">
-                                                    <option value=""><!--echo here --></option><!--echo inside the value should be the teacher id -->
-                                                    <option value=""><!--echo here --></option><!--echo inside the value should be the teacher id -->
+                                                    <?php 
+                                                    $query1="SELECT * FROM person WHERE person_type='Faculty' AND status='Active'";
+                                                    $result1=mysqli_query($conn,$query1);
+                                                    if($result1){
+                                                    while($row=mysqli_fetch_assoc($result1)){
+                                                       printf("<option value='%d'>%s</option>",$row["person_id"],$row["fname"]); 
+                                                    }
+                                                }
+                                                    ?>
+
                                                 </select>
                                             </div>
                                          </div>  
@@ -114,8 +122,15 @@
                                             <label for="shedule" class="col-md-4 col-form-label text-md-right">Schedule</label>                   
                                             <div class="col-md-6">
                                                 <select class='selectpicker form-control' placeholder="Choose a schedule" name="sheduler" id="shedule">
-                                                    <option value=""><!--echo the schedule here --></option><!--echo inside the value should be the schedule id -->
-                                                    <option value=""><!--echo the schedule here --></option><!--echo inside the value should be the schedule id -->
+                                                    <?php
+                                                $query1="SELECT * FROM subject_schedule";
+                                                $result1=mysqli_query($conn,$query1);
+                                                if($result1){
+                                                    while($row=mysqli_fetch_assoc($result1)){
+                                                       printf("<option value='%d'>%s</option>",$row["subjectSchedule_id"],$row["time"]);
+                                                    }
+                                                }
+                                                ?>
                                                 </select>
                                             </div>
                                          </div>                 

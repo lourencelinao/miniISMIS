@@ -14,7 +14,7 @@ if(isset($_POST["add"])){
     $teacher=$_POST["subject_teacher"];
     $sched=$_POST["sheduler"];
     $max=$_POST["subject_max"];
-    $check="SELECT * FROM subject_schedule WHERE faculty_id=$id AND time=sched"; //IF ROWS EXISTS A SUBJECT IS OVERLAPPING
+    $check="SELECT * FROM subject_schedule WHERE faculty_id=$id AND time=$sched"; //IF ROWS EXISTS A SUBJECT IS OVERLAPPING
     if($result=mysqli_query($check,$conn)){
         if(mysqli_num_rows($result)>0){
             echo '<script type="text/javascript">
@@ -22,7 +22,7 @@ if(isset($_POST["add"])){
                             </script>';
         }
         else{
-            $query="INSERT INTO subjects(subject_id,faculty_id,subject_name,max_students) VALUES($id,$sub,'$teacher','$sched',$max)";
+            $query="INSERT INTO subjects(subject_code,subject_name,max_students) VALUES($id,$sub,'$sched',$max)";
             $query2="INSERT INTO subject_schedule(time) VALUES($sched)";
             if(mysqli_query($conn, $query) && mysqli_query($conn,$query2)){
                 header('Location: ../views/ismis.php'); 
@@ -46,6 +46,29 @@ if(isset($_POST['Remove'])){
     }else{
         echo "Error";
     }
+}
+if(isset($_POST['update'])){
+    $id=$_POST["subject_id"];
+    $sub=$_POST["subject_name"];
+    $teacher=$_POST["subject_teacher"];
+    $sched=$_POST["sheduler"];
+    $max=$_POST["subject_max"];
+    $query="INSERT INTO subjects(subject_code,subject_name,max_students) VALUES($id,$sub,'$sched',$max)";
+            $query2="INSERT INTO subject_schedule(time) VALUES($sched)";
+            if(mysqli_query($conn, $query) && mysqli_query($conn,$query2)){
+                header('Location: ../views/ismis.php'); 
+            }
+            else{
+                echo '<script type="text/javascript">
+                        alert("Error in updating subject!");
+                            location="index.php";
+                            </script>';
+            }
+}
+if(isset($_POST['addStudent'])){
+    $stud=$_POST['student_name'];
+    $sub=$_POST['subject_name'];
+    $query1="INSERT INTO student_schedule(student_id,subjectSchedule_id) VALUES($stud,$sub)";
 }
 
 ?>

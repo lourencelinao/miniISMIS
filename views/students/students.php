@@ -126,7 +126,7 @@
                                             </tr>
                                         </tr>
                                         
-                                        <!--<?php if(mysqli_num_rows($student_schedule) > 0) : ?>
+                                        <?php if(mysqli_num_rows($student_schedule) > 0) : ?>
                                             <?php while($row = mysqli_fetch_assoc($student_schedule)) : ?>
                                                 <?php
                                                     //subject schedule data
@@ -152,13 +152,13 @@
                                                     <td><?php echo $subject['subject_name']; ?></td>
                                                     <td><?php echo $faculty['fname'] , ' ' , $faculty['lname']; ?></td>
                                                     <td><?php echo $subjectSchedule['time']; ?></td>
-                                                    <form action="#" method='POST'>
-                                                        <input type="hidden" value='<?php echo $row['subjectSchedule_id'] ; ?>' name=''>
+                                                    <form action="../Controllers/subjectController.php" method='POST'>
+                                                        <input type="hidden" value='<?php echo $row['subjectSchedule_id'] ; ?>' name='row_id'>
                                                         <button type='submit' name='remove' class='btn btn-primary btn-sm'>Remove</button>
                                                     </form>                                               
                                                 </tr>
                                             <?php endwhile ?>
-                                        <?php endif ?> -->
+                                        <?php endif ?> 
 
                                     </tbody>
                                 </table>

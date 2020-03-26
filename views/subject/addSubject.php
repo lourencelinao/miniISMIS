@@ -23,33 +23,7 @@
     $person = mysqli_fetch_assoc($result);
 
 
-    //INSERTS INTO SUBJECT
-    if(isset($_POST["add"])){
-        $id=$_POST["subject_id"];
-        $sub=$_POST["subject_name"];
-        $teacher=$_POST["subject_teacher"];
-        $sched=$_POST["sheduler"];
-        $max=$_POST["subject_max"];
-        $check="SELECT * FROM subject_schedule WHERE faculty_id!=$id AND time!=sched";
-        if(mysqli_query($check,$conn)==FALSE){
-            echo '<script type="text/javascript">
-                        alert("Teacher or subject in conflict");
-                            </script>';
-        }
-        else{
-            $query="INSERT INTO subjects(subject_id,faculty_id,subject_name,max_students) VALUES($id,$sub,'$teacher','$sched',$max)";
-            $query2="INSERT INTO subject_schedule(time) VALUES($sched)";
-            if(mysqli_query($conn, $query) && mysqli_query($conn,$query2)){
-                header('Location: ../views/ismis.php'); 
-            }
-            else{
-                echo '<script type="text/javascript">
-                        alert("Error in creating subject!");
-                            location="index.php";
-                            </script>';
-            }
-        }   
-    }
+
 
 
 ?>
@@ -114,7 +88,7 @@
                             </div>
                             <div class="card-body">
                                 <div class="container">
-                                    <form action="#" method='POST'>
+                                    <form action="../Controllers/subjectController.php" method='POST'>
 
                                         <div class="form-group row">
                                             <label for="subject_id" class="col-md-4 col-form-label text-md-right">Subject ID</label>
@@ -135,7 +109,7 @@
                                             <div class="col-md-6">
                                                 <select class='selectpicker form-control' placeholder="Choose a teacher" name="subject_teacher" id="subject_teacher">
                                                     <?php 
-                                                    $query1="SELECT * FROM faculty WHERE person_type='Faculty' AND status='Active'";
+                                                    $query1="SELECT * FROM person WHERE person_type='Faculty' AND status='Active'";
                                                     $result1=mysqli_query($conn,$query1);
                                                     if($result1){
                                                     while($row=mysqli_fetch_assoc($result1)){

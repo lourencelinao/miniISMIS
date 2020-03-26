@@ -22,6 +22,9 @@
     $result = mysqli_query($conn, $sql);
     $person = mysqli_fetch_assoc($result);
 
+    $query1="SELECT * FROM subject_schedule";
+    $result1=mysqli_query($conn,$query1);
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -93,8 +96,13 @@
                                             <label for="schedule" class="col-md-4 col-form-label text-md-right">Schedule</label>                   
                                             <div class="col-md-6">
                                                 <select class='selectpicker form-control' placeholder="Choose a subject" name="schedule" id="schedule">
-                                                    <option value=""><!--echo the subjectSchedule_id here --></option><!--echo inside the value the subjectSchedule_id  here -->
-                                                    <option value=""><!--echo the subjectSchedule_id  here --></option><!--echo inside the value the subjectSchedule_id  here -->
+
+                                                    <?php if(mysqli_num_rows($result1) > 0) : ?> // replace $dummy with the result of query
+                                                        <?php while($row = mysqli_fetch_assoc($result1)) :?> // replace $dummy with the result of query
+                                                            <option value='<?echo $row["subjectSchedule_id"]?>'><?echo $row["time"]?></option>
+                                                        <?php endwhile ?>
+                                                    <?php endif ?> 
+                                         
                                                 </select>
                                             </div>
                                         </div>  
