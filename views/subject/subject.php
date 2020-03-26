@@ -24,7 +24,7 @@
 
     $query="SELECT s.*,u.subjectSchedule_id,u.time,CONCAT(p.fname,'',p.lname)as name,p.person_id 
     FROM subject s, subject_schedule u, person p WHERE s.subject_id=u.subject_id AND s.faculty_id=p.person_id ";
-    $result1= mysqli_query($query,$conn);
+    $result1= mysqli_query($conn,$query);
 
 ?>
 <!DOCTYPE html>
