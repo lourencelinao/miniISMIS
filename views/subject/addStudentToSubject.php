@@ -22,6 +22,7 @@
     $result = mysqli_query($conn, $sql);
     $person = mysqli_fetch_assoc($result);
 
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -90,8 +91,15 @@
                                             <label for="student_name" class="col-md-4 col-form-label text-md-right">Student</label>                   
                                             <div class="col-md-6">
                                                 <select class='selectpicker form-control' placeholder="Choose a student" name="student_name" id="student_name">
-                                                    <option value=""><!--echo the student name here --></option> <!--echo inside the value should be the student id -->
-                                                    <option value=""><!--echo the student name here --></option> <!--echo inside the value should be the student id -->
+                                                    <?php 
+                                                    $query1="SELECT * FROM person WHERE person_type='Student' AND status='Active'";
+                                                    $result1=mysqli_query($conn,$query1);
+                                                    if($result1){
+                                                    while($row=mysqli_fetch_assoc($result1)){
+                                                       printf("<option value='%d'>%s</option>",$row["person_id"],$row["fname"]); 
+                                                    }
+                                                }
+                                                    ?>
                                                 </select>
                                             </div>
                                         </div>        
@@ -100,8 +108,16 @@
                                             <label for="subject_name" class="col-md-4 col-form-label text-md-right">Subject</label>                   
                                             <div class="col-md-6">
                                                 <select class='selectpicker form-control' placeholder="Choose a subject" name="subject_name" id="subject_name">
-                                                    <option value=""><!--echo the subject name here --></option><!--echo inside the value the subject id here -->
-                                                    <option value=""><!--echo the subject name here --></option><!--echo inside the value the subject id here -->
+    
+                                                    <?php 
+                                                    $query1="SELECT * FROM person WHERE person_type='Student' AND status='Active'";
+                                                    $result1=mysqli_query($conn,$query1);
+                                                    if($result1){
+                                                    while($row=mysqli_fetch_assoc($result1)){
+                                                       printf("<option value='%d'>%s</option>",$row["person_id"],$row["fname"]); 
+                                                    }
+                                                }
+                                                    ?>
                                                 </select>
                                             </div>
                                         </div>  

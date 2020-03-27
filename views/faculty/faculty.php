@@ -22,7 +22,7 @@
     $result = mysqli_query($conn, $sql);
     $person = mysqli_fetch_assoc($result);
 
-    $sql = "SELECT * FROM subjects where faculty_id='$id' ";
+    $sql = "SELECT * FROM subjects ' ";
     $subjects = mysqli_query($conn, $sql);
 
 
@@ -114,16 +114,16 @@
                                             </tr>
                                         </tr>
 
-                                        <!--<?php if(mysqli_num_rows($subjects) > 0) : ?>
+                                        <?php if(mysqli_num_rows($subjects) > 0) : ?>
                                             <?php while($row = mysqli_fetch_assoc($subjects)) : ?>                                              
                                                 <tr>
                                                     <th scope="row"><?php echo $row['subject_id']; ?></th>
                                                     <td><?php echo $row['subject_name']; ?></td>
-                                                    <td><?php echo $row['']; ?></td>
+                                                    <td><?php echo $row['max_students']; ?></td>
                                                     <td><a href="./list_of_students.php">Students</a></td>
                                                 </tr>
                                             <?php endwhile ?>
-                                        <?php endif ?> -->
+                                        <?php endif ?> 
 
                                     </tbody>
                                 </table>                              

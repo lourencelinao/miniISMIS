@@ -22,6 +22,9 @@
     $result = mysqli_query($conn, $sql);
     $person = mysqli_fetch_assoc($result);
 
+    $sql = "SELECT * FROM subjects  ";
+    $subject = mysqli_query($conn, $sql);
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -108,19 +111,21 @@
                                             </td>
                                         </tr>
                                         
-                                        <!--
-                                        <?php if(mysqli_num_rows($dummy) > 0) : ?> // replace $dummy with the result of query
-                                            <?php while($row = mysqli_fetch_assoc($dummy)) :?> // replace $dummy with the result of query
-                                                <th scope="row">// echo the subject code</th>
-                                                <td>//echo the subject name</td>
-                                                <td>
-                                                    <form action="./enroll_student.php" method='POST'>
-                                                        <input type="hidden" name='subject_id' value=''> // echo subject id inside value
-                                                        <button type='submit' name='submit' class='btn btn-primary btn-sm'>Enroll</button>
-                                                    </form>
-                                                </td>
+                                        
+                                        <?php if(mysqli_num_rows($subject) > 0) : ?> // replace $dummy with the result of query
+                                            <?php while($row = mysqli_fetch_assoc($subject)) :?> // replace $dummy with the result of query
+                                                <tr>
+                                                    <th scope="row"><?echo $row['subject_code']?></th>
+                                                    <td><?echo $row['subject_name']?></td>
+                                                    <td>
+                                                        <form action="./enroll_student.php" method='POST'>
+                                                            <input type="hidden" name='subject_id' value='<?echo $row['subjectSchedule_id']?>'> // echo subject id inside value
+                                                            <button type='submit' name='enroll' class='btn btn-primary btn-sm'>Enroll</button>
+                                                        </form>
+                                                    </td>
+                                                </tr>
                                             <?php endwhile ?>
-                                        <?php endif ?> -->
+                                        <?php endif ?> 
 
                                     </tbody>
                                 </table>
