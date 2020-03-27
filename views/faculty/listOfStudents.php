@@ -26,7 +26,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Subjects</title>
+        <title>List Of Students</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     </head>
     <style>
@@ -83,59 +83,41 @@
                                 <table class="table table-striped">
                                     <thead>
                                         <tr>
-                                            <th scope="col">Subject Code</th>
-                                            <th scope="col">Subject Name</th>
-                                            <th scope="col">Schedule</th>
-                                            <th scope="col">Students</th>
+                                            <th scope="col">Student ID</th>
+                                            <th scope="col">Student Name</th>
+                                            <th scope="col">Email</th>
+                                            <th scope="col">Contact</th>
+                                            <th scope="col">Address</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php
-                                                $sql = "SELECT * FROM assignedSubjects WHERE faculty_id = '$id' ";
-                                                $assignedSubject = mysqli_query($conn, $sql);
+                                                
+                                            $subjectSchedule_id = $_POST['subjectSchedule_id'];
+                                            $sql = "SELECT * FROM student_schedule WHERE subjectSchedule_id = '$subjectSchedule_id' ";
+                                            $student_schedule = mysqli_query($conn, $sql);                                            
                                         ?>
-                                        <?php if(mysqli_num_rows($assignedSubject) > 0) : ?>
-                                            <?php while($row = mysqli_fetch_assoc($assignedSubject)) : ?>
+                                        <?php if(mysqli_num_rows($student_schedule) > 0) : ?>
+                                            <?php while($row = mysqli_fetch_assoc($student_schedule)) : ?>
                                                 <?php
-                                                    $subject_id = $row['subject_id'];
-                                                    $time_id = $row['time_id'];
-
-                                                    $sql = "SELECT * FROM subjects WHERE subject_id = '$subject_id' ";
+                                                    $student_id = $row['student_id'];
+                                                    $sql = "SELECT * FROM person WHERE person_id = '$student_id' ";
                                                     $result = mysqli_query($conn, $sql);
-                                                    $subject = mysqli_fetch_assoc($result);
-
-                                                    $sql = "SELECT * FROM time WHERE time_id = '$time_id' ";
-                                                    $result = mysqli_query($conn, $sql);
-                                                    $time = mysqli_fetch_assoc($result); 
-                                                    
-                                                    $sql = "SELECT * FROM subject_schedule WHERE subject_id = '$subject_id' ";
-                                                    $result = mysqli_query($conn, $sql);
-                                                    $subject_schedule = mysqli_fetch_assoc($result);
-
-                                                    $subjectSchedule_id = $subject_schedule['subjectSchedule_id'];
-
-                                                    /*$sql = "SELECT * FROM student_schedule WHERE subjectSchedule_id = '$subjectSchedule_id' ";
-                                                    $result = mysqli_query($conn, $sql);
-                                                    $student_schedule = mysqli_fetch_assoc($result);*/
-
-
+                                                    $student = mysqli_fetch_assoc($result);
                                                 ?>
-                                                <tr>
-                                                    <td><?php echo $subject['subject_code']; ?></td>
-                                                    <td><?php echo $subject['subject_name']; ?></td>
-                                                    <td><?php echo $time['days'], ' ', $time['time'] ; ?></td>
-                                                    <td>
-                                                        <form action="./listOfStudents.php" method='POST'>
-                                                            <input type="hidden" value = '<?php echo $subjectSchedule_id; ?>' name = 'subjectSchedule_id'>
-                                                            <button type='submit' name = 'students' class='btn btn-primary btn-sm'>Students</button>
-                                                        </form>
-                                                    </td>     
-                                                </tr>
+                                              <tr>
+                                                  <td><?php echo $student['person_id']; ?></td>
+                                                  <td><?php echo $student['fname'], ' ', $student['mi'], ' ', $student['lname']; ?></td>
+                                                  <td><?php echo $student['email']; ?></td>
+                                                  <td><?php echo $student['contact']; ?></td>
+                                                  <td><?php echo $student['address']; ?></td>
+                                              </tr>
                                             <?php endwhile ?>
                                         <?php endif ?>
 
                                     </tbody>
-                                </table>                              
+                                </table> 
+                                <a href="./faculty.php" type='submit' class='btn btn-primary'>Back</a>                             
                             </div>
                         </div>
                     </div>

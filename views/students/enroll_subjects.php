@@ -22,9 +22,6 @@
     $result = mysqli_query($conn, $sql);
     $person = mysqli_fetch_assoc($result);
 
-    $sql = "SELECT * FROM subjects  ";
-    $subject = mysqli_query($conn, $sql);
-
 ?>
 <!DOCTYPE html>
 <html>
@@ -88,7 +85,7 @@
                                 <div>Subjects</div>
                             </div>
                             <div class="card-body">
-                                <h3>Schedule</h3>
+                                <h3>List of Subjects</h3>
 
                                 <table class="table table-striped">
                                     <thead>
@@ -99,28 +96,19 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <!-- SAMPLE ONLY -->
-                                        <tr>
-                                            <th scope="row">1</th>
-                                            <td>Data Structures</td>
-                                            <td>
-                                                <form action="./enroll_student.php" method='POST'>
-                                                    <input type="hidden" name='subject_id' value=''> <!-- echo subject id inside value -->
-                                                    <button type='submit' name='submit' class='btn btn-primary btn-sm'>Enroll</button>
-                                                </form>
-                                            </td>
-                                        </tr>
-                                        
-                                        
-                                        <?php if(mysqli_num_rows($subject) > 0) : ?> // replace $dummy with the result of query
-                                            <?php while($row = mysqli_fetch_assoc($subject)) :?> // replace $dummy with the result of query
+                                        <?php
+                                            $sql = "SELECT DISTINCT subject_id, subject_code, subject_name FROM subjects ";
+                                            $subject = mysqli_query($conn, $sql);
+                                        ?>
+                                        <?php if(mysqli_num_rows($subject) > 0) : ?> 
+                                            <?php while($row = mysqli_fetch_assoc($subject)) :?> 
                                                 <tr>
-                                                    <th scope="row"><?echo $row['subject_code']?></th>
-                                                    <td><?echo $row['subject_name']?></td>
-                                                    <td>
+                                                    <th scope="row"><?php echo $row['subject_code']; ?></th>
+                                                    <td><?php echo $row['subject_name'] ;?></td>
+                                                    <td>                                                
                                                         <form action="./enroll_student.php" method='POST'>
-                                                            <input type="hidden" name='subject_id' value='<?echo $row['subjectSchedule_id']?>'> // echo subject id inside value
-                                                            <button type='submit' name='enroll' class='btn btn-primary btn-sm'>Enroll</button>
+                                                            <input type="hidden" value='<?php echo $row['subject_id'] ;?>' name='subject_id'>
+                                                            <button type='submit' class='btn btn-primary btn-sm'>Enroll</button>
                                                         </form>
                                                     </td>
                                                 </tr>

@@ -22,6 +22,7 @@
     $result = mysqli_query($conn, $sql);
     $person = mysqli_fetch_assoc($result);
 
+    
 
 ?>
 <!DOCTYPE html>
@@ -85,18 +86,18 @@
                             </div>
                             <div class="card-body">
                                 <div class="container">
-                                    <form action="#" method='POST'>
+                                    <form action="../../Controllers/subjectController.php" method='POST'>
 
                                         <div class="form-group row">
-                                            <label for="student_name" class="col-md-4 col-form-label text-md-right">Student</label>                   
+                                            <label for="student_id" class="col-md-4 col-form-label text-md-right">Student</label>                   
                                             <div class="col-md-6">
-                                                <select class='selectpicker form-control' placeholder="Choose a student" name="student_name" id="student_name">
+                                                <select class='selectpicker form-control' placeholder="Choose a student" name="student_id" id="student_id">
                                                     <?php 
                                                     $query1="SELECT * FROM person WHERE person_type='Student' AND status='Active'";
                                                     $result1=mysqli_query($conn,$query1);
                                                     if($result1){
                                                     while($row=mysqli_fetch_assoc($result1)){
-                                                       printf("<option value='%d'>%s</option>",$row["person_id"],$row["fname"]); 
+                                                       printf("<option value='%d'>%s %s</option>",$row["person_id"],$row["fname"], $row['lname']); 
                                                     }
                                                 }
                                                     ?>
@@ -105,22 +106,34 @@
                                         </div>        
                                         
                                         <div class="form-group row">
-                                            <label for="subject_name" class="col-md-4 col-form-label text-md-right">Subject</label>                   
+                                            <label for="subjectSchedule" class="col-md-4 col-form-label text-md-right">Subject</label>                   
                                             <div class="col-md-6">
-                                                <select class='selectpicker form-control' placeholder="Choose a subject" name="subject_name" id="subject_name">
-    
-                                                    <?php 
-                                                    $query1="SELECT * FROM person WHERE person_type='Student' AND status='Active'";
-                                                    $result1=mysqli_query($conn,$query1);
-                                                    if($result1){
-                                                    while($row=mysqli_fetch_assoc($result1)){
-                                                       printf("<option value='%d'>%s</option>",$row["person_id"],$row["fname"]); 
-                                                    }
-                                                }
+                                                <select class='selectpicker form-control' placeholder="Choose a subject" name="subjectSchedule" id="subjectSchedule">
+                                                    <?php
+                                                        //subjects
+                                                        $sql = "SELECT * FROM subject_schedule";
+                                                        $subjectSchedule = mysqli_query($conn, $sql);
                                                     ?>
+                                                    <?php while($row = mysqli_fetch_assoc($subjectSchedule)) :?>
+                                                        <?php
+                                                            $subject_id = $row['subject_id'];
+                                                            $sql = "SELECT * FROM subjects WHERE subject_id='$subject_id' ";
+                                                            $subject = mysqli_query($conn, $sql);
+                                                            $subject = mysqli_fetch_assoc($subject);
+                                                            
+                                                            $time_id = $row['time_id'];
+                                                            $sql = "SELECT * FROM time WHERE time_id = '$time_id'";
+                                                            $time = mysqli_query($conn, $sql);
+                                                            $time = mysqli_fetch_assoc($time);
+                                                        ?>
+                                                        <option value="<?php echo $row['subjectSchedule_id']; ?>">
+                                                            <?php echo $subject['subject_name'], ', ', $time['days'], ' ', $time['time']; ?>
+                                                        </option>
+                                                    <?php endwhile ?>
+
                                                 </select>
                                             </div>
-                                        </div>  
+                                        </div> 
 
                                         <div class="form-group row">  
                                             <label for="add" class="col-md-4 col-form-label text-md-right"></label>                

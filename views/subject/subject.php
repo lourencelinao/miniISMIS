@@ -1,7 +1,7 @@
 <?php
     
-    $dbname = "mini_ismis";
-    $conn = mysqli_connect("localhost", "root", "", $dbname);
+    $dbname = 'mini_ismis';
+    $conn = mysqli_connect('localhost', 'root', '', $dbname);
     
 
     if(!$conn){
@@ -23,15 +23,11 @@
     $person = mysqli_fetch_assoc($result);
 
 
-    
-
-
-
 ?>
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Add Subject</title>
+        <title>Subjects</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     </head>
     <style>
@@ -52,15 +48,15 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                    <div class="navbar-nav">
+                    <div class="navbar-nav">                 
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle active text-primary" href="#"  href="#" id="administratorDropDown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle active <?php echo ($user['user_type'] != "Administrator")? 'disabled': '' ;?>" href="#"  href="#" id="administratorDropDown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Administrator<span class="sr-only">(current)</span>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="administratorDropDown">
-                            <a class="dropdown-item" href="./subject.php">Subjects</a>
+                            <a class="dropdown-item" href="#">Subjects</a>
                             <!-- <a class="dropdown-item" href="./schedule.php">Schedules</a> -->
-                        </li>           
+                        </li>          
                     </div>
                 </div>
 
@@ -74,7 +70,7 @@
                         <a class="dropdown-item" href="../login.php">Logout</a>
                     </div>
                     </div>
-                </div>
+                </div>                
             </nav>
         </div>
 
@@ -84,71 +80,86 @@
                 <div class="row mt-3">
                     <div class="col-md-12">
                         <div class="card">
-                            <div class="card-header text-primary">
-                                Add Subject
+                            <div class="card-header text-primary d-flex justify-content-between align-items-baseline">
+                                <div>Subjects</div>
+                                <div><a href='./addStudentToSubject.php' class='btn btn-primary btn-sm'>Add Student</a></div>
                             </div>
                             <div class="card-body">
                                 <div class="container">
-                                    <form action='addSubject.php' method='POST'>
+                                    <a href='./addSubject.php' class='btn btn-primary'>Add Subject</a>                                                                  
+                                </div>
 
-                                        <div class="form-group row">
-                                            <label for="subject_id" class="col-md-4 col-form-label text-md-right">Subject ID</label>
-                                            <div class="col-md-6">
-                                                <input id="subject_id" type="text" placeholder="Enter Subject ID" class="form-control" name="subject_id">
-                                            </div>
-                                        </div>
+                                <div class="container pt-3">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Subject Code</th>
+                                                <th scope="col">Subject Name</th>
+                                                <th scope="col">Assigned Teacher</th>
+                                                <th scope="col">Schedule</th>
+                                                <th scope="col">Max Students</th>
+                                                <th scope='col'></th>
+                                                <th scope='col'></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!--
+                                                <th scope="row">1</th>
+                                                <td>Data Structures</td>
+                                                <td>Christine Pena</td>
+                                                <td>7:30 - 10:30</td>
+                                                <td><button class='btn btn-primary btn-sm'>Remove</button></td>
+                                            </tr>
+                                            -->
+                                            <!--CODE FOR RETRIEVING SUBJECT INFO -->
+                                            <?php
+                                                $sql = "SELECT * FROM subjects";
+                                                $subjects = mysqli_query($conn, $sql);
+                                            ?>
+                                            <?php if(mysqli_num_rows($subjects)) : ?>
+                                                <?php while($row = mysqli_fetch_assoc($subjects)) : ?>
+                                                    <?php
+                                                        $subject_code = $row['subject_code'];
+                                                        $subject_id = $row['subject_id'];
+                                                        $sql = "SELECT * FROM assignedSubjects WHERE subject_id = '$subject_id' ";
+                                                        $assignedSubject = mysqli_query($conn, $sql);
+                                                        $assignedSubject = mysqli_fetch_assoc($assignedSubject);
 
-                                        <div class="form-group row">
-                                            <label for="subject_name" class="col-md-4 col-form-label text-md-right">Subject Name</label>
-                                            <div class="col-md-6">
-                                                <input id="subject_name" type="text" placeholder="Enter Subject Name" class="form-control" name="subject_name">
-                                            </div>
-                                        </div>
-                                        
-                                        <div class="form-group row">
-                                            <label for="subject_teacher" class="col-md-4 col-form-label text-md-right">Teacher</label>                   
-                                            <div class="col-md-6">
-                                                <select class='selectpicker form-control' placeholder="Choose a teacher" name="subject_teacher" id="subject_teacher">
-                                                    <?php 
-                                                    $query1="SELECT * FROM person WHERE person_type='Faculty' AND status='Active'";
-                                                    $result1=mysqli_query($conn,$query1);
-                                                    if($result1){
-                                                    while($row=mysqli_fetch_assoc($result1)){
-                                                       printf("<option value='%d'>%s</option>",$row["person_id"],$row["fname"]); 
-                                                    }
-                                                }
+                                                        //teacher name
+                                                        $faculty_id = $assignedSubject['faculty_id'];
+                                                        $sql = "SELECT * FROM person WHERE person_id='$faculty_id' ";
+                                                        $result = mysqli_query($conn, $sql);
+                                                        $faculty = mysqli_fetch_assoc($result);
+
+                                                        $time_id = $assignedSubject['time_id'];
+                                                        $sql = "SELECT * FROM time WHERE time_id='$time_id' ";
+                                                        $time = mysqli_query($conn, $sql);
+                                                        $time = mysqli_fetch_assoc($time);
                                                     ?>
-                                                </select>
-                                            </div>
-                                         </div>  
-                                         
-                                         <div class="form-group row">
-                                            <label for="shedule" class="col-md-4 col-form-label text-md-right">Schedule</label>                   
-                                            <div class="col-md-6">
-                                                <select class='selectpicker form-control' placeholder="Choose a schedule" name="sheduler" id="shedule">
-                                                    <option value=7:30>7:30</option>
-                                                    <option value=8:30>8:30</option>
-                                                    <option value=9:30>9:30</option>
-                                                </select>
-                                            </div>
-                                         </div>
-
-                                         <div class="form-group row">
-                                            <label for="subject_max" class="col-md-4 col-form-label text-md-right">Subject Maximum Students</label>
-                                            <div class="col-md-6">
-                                                <input id="subject_max" type="number" placeholder="Enter Subject Maximum Students" class="form-control" name="subject_max">
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group row">  
-                                            <label for="add" class="col-md-4 col-form-label text-md-right"></label>                
-                                            <div class="col-md-6">
-                                                <a href='./subject.php' name='cancel' class='btn btn-primary '>Cancel</a>
-                                                <button type='submit' name='add' class='btn btn-primary '>Add</button>                                            
-                                            </div>
-                                        </div>
-
-                                    </form>
+                                                    <tr>
+                                                        <th scope='row'><?php echo $row['subject_code'] ;?></th>
+                                                        <td><?php echo $row['subject_name'] ;?></td>
+                                                        <td><?php echo $faculty['fname'], ' ', $faculty['lname'] ;?></td>
+                                                        <td><?php echo $time['days'], ' ', $time['time'] ;?></td>
+                                                        <td><?php echo $row['max_students'] ;?></td>
+                                                        <td>
+                                                            <form action="./updateSubject.php" method='POST'>
+                                                                <input type="hidden" value='<?php echo $row['subject_id'];?>' name='subject_id' >
+                                                                <input type="hidden" value='<?php echo $faculty_id;?>' name='faculty_id' >
+                                                                <button class='btn btn-primary btn-sm' type='submit' name='update'>Update</button>
+                                                            </form>
+                                                        </td>
+                                                        <td>
+                                                            <form action="../../Controllers/subjectController.php" method='POSt'>
+                                                                <input type="hidden" value='<?php echo $row['subject_id'];?>' name='subject_id' >
+                                                                <button class='btn btn-primary btn-sm' type='submit' name='delete'>Delete</button>
+                                                            </form>                                     
+                                                        </td>
+                                                    </tr>
+                                                <?php endwhile ?>
+                                            <?php endif ?>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -161,4 +172,4 @@
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     </body>
-</html>
+</html> 

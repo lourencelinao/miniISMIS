@@ -103,28 +103,6 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <th scope="row">1</th>
-                                                <td>Data Structures</td>
-                                                <td>Christine Pena</td>
-                                                <td>7:30 - 10:30</td>
-                                                <td><button class='btn btn-primary btn-sm'>Remove</button></td>
-                                            </tr>
-
-                                            <th scope="row">1</th>
-                                                <td>Data Structures</td>
-                                                <td>Christine Pena</td>
-                                                <td>7:30 - 10:30</td>
-                                                <td><button class='btn btn-primary btn-sm'>Remove</button></td>
-                                            </tr>
-
-                                            <th scope="row">1</th>
-                                                <td>Data Structures</td>
-                                                <td>Christine Pena</td>
-                                                <td>7:30 - 10:30</td>
-                                                <td><button class='btn btn-primary btn-sm'>Remove</button></td>
-                                            </tr>
-                                        </tr>
                                         
                                         <?php if(mysqli_num_rows($student_schedule) > 0) : ?>
                                             <?php while($row = mysqli_fetch_assoc($student_schedule)) : ?>
@@ -146,16 +124,25 @@
                                                     $sql = "SELECT * FROM person WHERE person_id='$faculty_id' ";
                                                     $faculty = mysqli_query($conn, $sql);
                                                     $faculty = mysqli_fetch_assoc($faculty);
+                                                    
+                                                    //schedule
+                                                    $time_id = $subjectSchedule['time_id'];
+                                                    $sql = "SELECT * FROM time WHERE time_id = '$time_id'  ";
+                                                    $result = mysqli_query($conn, $sql);
+                                                    $time = mysqli_fetch_assoc($result);
                                                 ?>
                                                 <tr>
                                                     <th scope="row"><?php echo $subject['subject_code']; ?></th>
                                                     <td><?php echo $subject['subject_name']; ?></td>
                                                     <td><?php echo $faculty['fname'] , ' ' , $faculty['lname']; ?></td>
-                                                    <td><?php echo $subjectSchedule['time']; ?></td>
-                                                    <form action="../Controllers/subjectController.php" method='POST'>
-                                                        <input type="hidden" value='<?php echo $row['subjectSchedule_id'] ; ?>' name='row_id'>
-                                                        <button type='submit' name='remove' class='btn btn-primary btn-sm'>Remove</button>
-                                                    </form>                                               
+                                                    <td><?php echo $time['days'], ' ', $time['time']; ?></td>
+                                                    <td>
+                                                        <form action="../../Controllers/studentController.php" method='POST'>
+                                                            <input type="hidden" value='<?php echo $row['subjectSchedule_id'] ; ?>' name='subjectSchedule_id'>
+                                                            <input type="hidden" value='<?php echo $id ; ?>' name='student_id'>
+                                                            <button type='submit' name='remove' class='btn btn-primary btn-sm'>Remove</button>
+                                                        </form> 
+                                                    </td>                                              
                                                 </tr>
                                             <?php endwhile ?>
                                         <?php endif ?> 

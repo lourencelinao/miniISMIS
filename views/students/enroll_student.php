@@ -22,8 +22,6 @@
     $result = mysqli_query($conn, $sql);
     $person = mysqli_fetch_assoc($result);
 
-    $query1="SELECT * FROM subject_schedule";
-    $result1=mysqli_query($conn,$query1);
 
 ?>
 <!DOCTYPE html>
@@ -89,24 +87,43 @@
                             </div>
                             <div class="card-body">
                                 <div class="container">
-                                    <form action="#" method='POST'>
-
+                                    <form action="../../Controllers/studentController.php" method='POST'>
+                                    <input type="hidden" value='<?php echo $id; ?>' name='student_id'>
                                         <!-- Schedules must be shown on the dropdown depending on the chosen subject  -->
                                         <div class="form-group row">
                                             <label for="schedule" class="col-md-4 col-form-label text-md-right">Schedule</label>                   
                                             <div class="col-md-6">
                                                 <select class='selectpicker form-control' placeholder="Choose a subject" name="schedule" id="schedule">
+                                                    <?php
+                                                        $subject_id = $_POST['subject_id'];
 
-                                                    <?php if(mysqli_num_rows($result1) > 0) : ?> // replace $dummy with the result of query
-                                                        <?php while($row = mysqli_fetch_assoc($result1)) :?> // replace $dummy with the result of query
-                                                            <option value='<?echo $row["subjectSchedule_id"]?>'><?echo $row["time"]?></option>
+                                                        $sql = "SELECT * FROM subject_schedule WHERE subject_id = '$subject_id' ";
+                                                        $result = mysqli_query($conn, $sql);
+                                                        
+                                                    ?>
+                                                    <?php if(mysqli_num_rows($result) > 0) : ?>
+                                                        <?php while($row = mysqli_fetch_assoc($result)) : ?>
+                                                            <?php
+                                                                $sql = "SELECT * FROM subjects WHERE subject_id = '$subject_id' ";
+                                                                $result = mysqli_query($conn, $sql);
+                                                                $subject = mysqli_fetch_assoc($result);
+
+                                                                $time_id = $row['time_id'];
+                                                                $sql = "SELECT * FROM time WHERE time_id = '$time_id' ";
+                                                                $result = mysqli_query($conn, $sql);
+                                                                $time = mysqli_fetch_assoc($result);
+
+                                                                
+                                                            ?>
+                                                            <option value="<?php echo $row['subjectSchedule_id'] ; ?>">
+                                                                <?php echo $subject['subject_name'], ' ', $time['days'], ' ', $time['time'] ;?>
+                                                            </option>
                                                         <?php endwhile ?>
-                                                    <?php endif ?> 
-                                         
+                                                    <?php endif ?>
                                                 </select>
                                             </div>
                                         </div>  
-
+                                        <input type="hidden" value='<?php echo $time_id;?>' name='time_id'>
                                         <div class="form-group row">  
                                             <label for="add" class="col-md-4 col-form-label text-md-right"></label>                
                                             <div class="col-md-6">
