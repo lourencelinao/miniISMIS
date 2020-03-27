@@ -1,4 +1,4 @@
-# miniISMIS
+# mini ISMIS (Student/Faculty Portal)
 Import the SQL file to the PHPMYADMIN to use this webapp. (SQL file is under the database folder)
 
 Admin : username = 1, password = P@ssw0rd;
