@@ -25,5 +25,24 @@ username = 6, password = P@ssw0rd <br>
 Catalan, Jamiel <br>
 Linao, Lourence <br>
 
-#Login Page
-![alt text](file:///C:/Users/loure/Downloads/login.png)
+# Register Page
+![Alt text](/img/register.png?raw=true "Optional Title")
+# Login Page
+![Alt text](/img/login.png?raw=true "Optional Title")
+
+# Admin View
+![Alt text](/img/admin_lp.png?raw=true "Optional Title")
+## Admin enrolling a student
+![Alt text](/img/admin_enroll.png?raw=true "Optional Title")
+## Admin creating a new subject
+![Alt text](/img/admin_createsub.png?raw=true "Optional Title")
+
+# Student View
+![Alt text](/img/stud_lp.png?raw=true "Optional Title")
+## Student Enroll
+![Alt text](/img/stud_enroll.png?raw=true "Optional Title")
+
+# Faculty/Teacher View
+![Alt text](/img/faculty_lp.png?raw=true "Optional Title")
+## Faculty Student List
+![Alt text](/img/faculty_studlist.png?raw=true "Optional Title")
