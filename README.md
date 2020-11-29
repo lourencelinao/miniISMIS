@@ -8,7 +8,7 @@ Linao, Lourence <br>
 1. `git clone https://github.com/lourencelinao/miniISMIS`
 2. `cd miniISMIS`
 3. create a database called mini_ismis in phpmyadmin and import 'importThisFileToMySQL.sql'.SQL file is located under the database folder.
-4. open `localhost:80/miniISMIS/views/login.php`
+4. open `localhost:80/miniISMIS/views/login.php` (URL could vary)
 
 ## Roles and Users
 #### You can also create your own account. All passwords are set to 'P@ssw0rd'
