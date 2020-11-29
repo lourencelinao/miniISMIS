@@ -26,10 +26,10 @@ username = 5, password = P@ssw0rd <br>
 username = 6, password = P@ssw0rd <br>
 
 
-# Register Page
-![Alt text](/img/register.png?raw=true "Optional Title")
 # Login Page
 ![Alt text](/img/login.png?raw=true "Optional Title")
+# Register Page
+![Alt text](/img/register.png?raw=true "Optional Title")
 
 # Admin View
 ![Alt text](/img/admin_lp.png?raw=true "Optional Title")
