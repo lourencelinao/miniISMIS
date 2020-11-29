@@ -45,5 +45,5 @@ username = 6, password = P@ssw0rd <br>
 
 # Faculty/Teacher View
 ![Alt text](/img/faculty_lp.png?raw=true "Optional Title")
-## Faculty Student List
+## Class Student List
 ![Alt text](/img/faculty_studlist.png?raw=true "Optional Title")
