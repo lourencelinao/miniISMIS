@@ -1,4 +1,8 @@
 # mini ISMIS (Student/Faculty Portal)
+
+## Members: 
+Catalan, Jamiel <br>
+Linao, Lourence <br>
 Steps on how to run on local computer
 1. `git clone https://github.com/lourencelinao/miniISMIS`
 2. `cd miniISMIS`
@@ -20,10 +24,6 @@ username = 4, password = P@ssw0rd <br>
 username = 5, password = P@ssw0rd <br>
 username = 6, password = P@ssw0rd <br>
 
-
-##### Members: 
-Catalan, Jamiel <br>
-Linao, Lourence <br>
 
 # Register Page
 ![Alt text](/img/register.png?raw=true "Optional Title")
