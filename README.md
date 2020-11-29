@@ -6,6 +6,7 @@ Steps on how to run on local computer
 4. open `localhost:80/miniISMIS/views/login.php`
 
 ## Roles and Users
+#### You can also create your own account. All passwords are set to 'P@ssw0rd'
 
 ### Admin:
 username = 1, password = P@ssw0rd
@@ -19,7 +20,6 @@ username = 4, password = P@ssw0rd <br>
 username = 5, password = P@ssw0rd <br>
 username = 6, password = P@ssw0rd <br>
 
-#### You can also create your own account. All passwords are set to 'P@ssw0rd'
 
 ##### Members: 
 Catalan, Jamiel <br>
