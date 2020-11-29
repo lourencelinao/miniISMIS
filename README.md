@@ -24,3 +24,6 @@ username = 6, password = P@ssw0rd <br>
 ##### Members: 
 Catalan, Jamiel <br>
 Linao, Lourence <br>
+
+#Login Page
+![alt text](file:///C:/Users/loure/Downloads/login.png)
