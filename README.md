@@ -5,7 +5,7 @@ Catalan, Jamiel <br>
 Linao, Lourence <br>
 
 ## Steps on how to run on local computer
-1. `git clone https://github.com/lourencelinao/miniISMIS`
+1. `git clone https://github.com/lourencelinao/miniISMIS` (clone it inside htdocs)
 2. `cd miniISMIS`
 3. create a database called mini_ismis in phpmyadmin and import 'importThisFileToMySQL.sql'.SQL file is located under the database folder.
 4. open `localhost:80/miniISMIS/views/login.php` (URL could vary)
